@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import importDeck, { cardColors, cardValues } from "./deck/Deck";
-import { IconButton } from "@mui/material";
+import { IconButton, Tooltip } from "@mui/material";
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import SortIcon from '@mui/icons-material/Sort';
 import { ReactComponent as BackCard } from './assets/cards/2B.svg';
@@ -47,25 +47,28 @@ export default function App() {
   const drawRandomCard = () => {
     if(cards.length > 0 ) {
       const index = getRandomArbitrary(0, cards.length - 1);
-      console.log(index);
       const cards2 = [...cards];
-      console.log("INDEX=", cards2.length);
       setSelectedCards([cards2[index], ...selectedCards]);
       cards2.splice(index, 1);
-      console.log("INDEX=", cards2.length);
       setCards(cards2);
     }
   }
 
   return <>
-    <BackCard onClick={drawRandomCard}/>
+    <Tooltip title="Click to draw card">
+      <BackCard onClick={drawRandomCard}/>
+    </Tooltip>
     <br/>
-    <IconButton size="large" aria-label="delete" color="primary" onClick={shuffleCards}>
-      <ShuffleIcon />
-    </IconButton>
-    <IconButton size="large" aria-label="delete" color="primary" onClick={sortCards}>
-      <SortIcon />
-    </IconButton>
+    <Tooltip title="Shuffle">
+      <IconButton size="large" aria-label="delete" color="primary" onClick={shuffleCards}>
+        <ShuffleIcon />
+      </IconButton>
+    </Tooltip>
+    <Tooltip title="Sort">
+      <IconButton size="large" aria-label="delete" color="primary" onClick={sortCards}>
+        <SortIcon />
+      </IconButton>
+    </Tooltip>
     <br/>
     { selectedCards.map(card => <img style={{marginRight: "10px", marginBottom: "10px"}} key={card.name} alt={card.name} src={card.img}/>) }
   </>
