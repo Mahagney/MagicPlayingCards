@@ -4,6 +4,7 @@ import { IconButton, Tooltip } from "@mui/material";
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import SortIcon from '@mui/icons-material/Sort';
 import { ReactComponent as BackCard } from './assets/cards/2B.svg';
+import HideAppBar from './app-bar/AppBar';
 
 export default function App() {
   const [cards, setCards] = useState([]);
@@ -54,8 +55,10 @@ export default function App() {
     }
   }
 
-  return <>
-    <Tooltip title="Click to draw card">
+  return     <div style={{width: '100%', height: '100vh',  'overflow-y': 'scroll',  background: 'linear-gradient(to right bottom, #50C878, #82ffa1)'}}>
+
+  <HideAppBar>
+    <Tooltip title="Click to draw card" placement="bottom-end">
       <BackCard onClick={drawRandomCard}/>
     </Tooltip>
     <br/>
@@ -71,5 +74,7 @@ export default function App() {
     </Tooltip>
     <br/>
     { selectedCards.map(card => <img style={{marginRight: "10px", marginBottom: "10px"}} key={card.name} alt={card.name} src={card.img}/>) }
-  </>
+  </HideAppBar>
+  </div>
+
 }
